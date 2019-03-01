@@ -22,7 +22,8 @@ add_library(toolbox
   colormap.cc
   Program.cc
   ProgramOptions.cc
-  libjpeg.cc)
+  libjpeg.cc
+  ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/jsoncpp.cpp)
   
 #add_subdirectory(3rdparty/fmt)
 

@@ -9,7 +9,8 @@ find_package(JPEG REQUIRED)
 #SET(CMAKE_BUILD_TYPE "Debug")
 set(CMAKE_CXX_FLAGS "-std=c++14 -fPIC -Wall -Wno-unknown-pragmas -Wno-strict-aliasing")
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/ ${Boost_INCLUDE_DIRS}) 
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/plog/include/" ${Boost_INCLUDE_DIRS}) 
+message(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/ ${Boost_INCLUDE_DIRS}) 
 link_directories(${BOOST_LIBRARY_DIRS})
 
 add_library(toolbox

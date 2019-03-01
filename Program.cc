@@ -5,9 +5,9 @@
 #include "tokenize.h"
 #include <fmt/format.h>
 
-#include "plog/Log.h"
-#include "plog/Appenders/RollingFileAppender.h"
-#include "plog/Appenders/ConsoleAppender.h"
+#include <plog/Log.h>
+#include <plog/Appenders/RollingFileAppender.h>
+#include <plog/Appenders/ConsoleAppender.h>
 
 namespace toolbox {
 

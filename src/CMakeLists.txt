@@ -15,9 +15,13 @@ add_library(toolbox
 
 target_include_directories(toolbox PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
+target_compile_features(toolbox PUBLIC cxx_std_14)
+set_target_properties(toolbox PROPERTIES CXX_EXTENSIONS OFF)
+
 target_link_libraries(toolbox PUBLIC
     fmt 
     jpeg 
     png 
     plog
     ${Boost_LIBRARIES})
+

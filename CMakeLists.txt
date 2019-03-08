@@ -10,5 +10,5 @@ include(BuildType)
 find_package(Boost REQUIRED COMPONENTS system filesystem program_options)
 find_package(JPEG REQUIRED)
 
-add_subdirectory(${CMAKE_SOURCE_DIR}/extern/plog/)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/extern/plog/)
 add_subdirectory(src)

@@ -1,5 +1,5 @@
 
-#include "colormap.h"
+#include <cpp-toolbox/colormap.h>
 
 #include <cmath>
 #include <utility>

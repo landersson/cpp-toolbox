@@ -1,4 +1,4 @@
-#include "image.h"
+#include <cpp-toolbox/image.h>
 
 #include <cstdio>
 #include <cassert>

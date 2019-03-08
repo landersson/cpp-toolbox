@@ -2,7 +2,8 @@
 //Released under MIT License
 //license available in LICENSE file, or at http://www.opensource.org/licenses/mit-license.php
 
-#include "cnpy.h"
+#include <cpp-toolbox/cnpy.h>
+
 #include <complex>
 #include <cstdlib>
 #include <algorithm>

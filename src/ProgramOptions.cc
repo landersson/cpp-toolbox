@@ -1,9 +1,8 @@
 
 //#include "common/core/Log.h"
-#include "ProgramOptions.h"
-#include "strutil.h"
-//#include "common/core/util/string_util.h"
-#include "tokenize.h"
+#include <cpp-toolbox/ProgramOptions.h>
+#include <cpp-toolbox/strutil.h>
+#include <cpp-toolbox/tokenize.h>
 
 #include <boost/algorithm/string.hpp>
 

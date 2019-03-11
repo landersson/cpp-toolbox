@@ -13,14 +13,10 @@ public:
     }
 
     // reset timer to zero
-    void reset()
-    {
-        _t0 = get_uptime_us()
-    }
+    void reset(){ _t0 = get_uptime_us() }
 
     uint64_t us_elapsed() const
     {
         return get_uptime_us() - _t0;
     }
 };
-

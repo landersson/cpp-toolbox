@@ -3,10 +3,10 @@
 
 #include <time.h>
 
-namespace toolbox
-{
+namespace toolbox {
 
-uint64_t get_uptime_us()
+uint64_t
+get_uptime_us()
 {
 #ifdef __linux__
     struct timespec ts;
@@ -17,10 +17,7 @@ uint64_t get_uptime_us()
 #endif
 }
 
-
 class Timer
-{
-
-};
+{};
 
 }

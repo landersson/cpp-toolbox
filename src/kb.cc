@@ -1,14 +1,15 @@
 
-#include <stdlib.h>
-#include <stdio.h>
 #include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <termios.h>
 #include <unistd.h>
 
 namespace toolbox {
 
-char get_key(bool block)
+char
+get_key(bool block)
 {
     struct termios oldt, newt;
     int ch;
@@ -31,12 +32,12 @@ char get_key(bool block)
     return ch;
 }
 
-bool kb_hit()
+bool
+kb_hit()
 {
     char ch = get_key(false);
 
-    if(ch != EOF)
-    {
+    if (ch != EOF) {
         ungetc(ch, stdin);
         return true;
     }
@@ -44,11 +45,11 @@ bool kb_hit()
     return false;
 }
 
-void wait_key()
+void
+wait_key()
 {
-    while(!kb_hit())
-    {
-        usleep( 10000 );
+    while (!kb_hit()) {
+        usleep(10000);
     }
 
     getchar(); // Flush key buffer for next stop

@@ -1,19 +1,19 @@
 
 #pragma once
 
-#include <string>
 #include <cstdio>
+#include <string>
 #include <vector>
 
-namespace toolbox
-{
+namespace toolbox {
 
 template<typename T>
-std::vector<T> load_vector_from_file(const std::string & filename)
+std::vector<T>
+load_vector_from_file(const std::string& filename)
 {
     std::vector<T> data;
 
-    FILE *fp = std::fopen(filename.c_str(), "rb");
+    FILE* fp = std::fopen(filename.c_str(), "rb");
     if (fp == nullptr)
         return data;
 

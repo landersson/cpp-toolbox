@@ -8,7 +8,10 @@
 namespace toolbox {
 namespace cmap {
 
-RGB cmr(float f);
-RGB iron(float f);
+RGB
+cmr(float f);
+RGB
+iron(float f);
 
-}}
+}
+}

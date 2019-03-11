@@ -10,43 +10,47 @@
 
 namespace toolbox {
 
-ProgramOptions::ProgramOptions()
-{
-}
+ProgramOptions::ProgramOptions() {}
 
-void ProgramOptions::addOptions(const std::string& name, ProgramOption* options)
+void
+ProgramOptions::addOptions(const std::string& name, ProgramOption* options)
 {
-    if (options != nullptr)
-    {
+    if (options != nullptr) {
         boost::program_options::options_description description(name);
-        while (std::get<2>(*options) != nullptr)
-        {
-            description.add_options()(std::get<0>(*options).c_str(), std::get<2> (*options),
-                std::get<1>(*options).c_str());
+        while (std::get<2>(*options) != nullptr) {
+            description.add_options()(std::get<0>(*options).c_str(),
+                                      std::get<2>(*options),
+                                      std::get<1>(*options).c_str());
             options++;
         }
         _description.add(description);
     }
 }
 
-std::vector<std::string> ProgramOptions::getStrings(const std::string & option_name,
-                                                    const std::string & separator)
+std::vector<std::string>
+ProgramOptions::getStrings(const std::string& option_name,
+                           const std::string& separator)
 {
     std::vector<std::string> empty;
-//    return empty;
-    return strutil::split(this->operator[](option_name).as<std::string>(), separator);
+    //    return empty;
+    return strutil::split(this->operator[](option_name).as<std::string>(),
+                          separator);
 }
 
-
-void ProgramOptions::parseCommandLine(int argc, char** argv)
+void
+ProgramOptions::parseCommandLine(int argc, char** argv)
 {
-    boost::program_options::store(boost::program_options::parse_command_line(argc, argv, _description), *this);
-    // dont notify here, since any options specified as required will terminate the program with
-    // an error message before we even have a chance to print help.
-//    self->notify();
+    boost::program_options::store(
+        boost::program_options::parse_command_line(argc, argv, _description),
+        *this);
+    // dont notify here, since any options specified as required will terminate
+    // the program with an error message before we even have a chance to print
+    // help.
+    //    self->notify();
 }
 
-std::string ProgramOptions::toString()
+std::string
+ProgramOptions::toString()
 {
     return strutil::to_string(_description);
 }

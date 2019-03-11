@@ -2,15 +2,17 @@
 
 #pragma once
 
-namespace toolbox
-{
+namespace toolbox {
 
 struct RGB
 {
-    RGB(uint8_t red = 0, uint8_t green = 0, uint8_t blue = 0) : r(red), g(green), b(blue)
-    { }
+    RGB(uint8_t red = 0, uint8_t green = 0, uint8_t blue = 0)
+        : r(red)
+        , g(green)
+        , b(blue)
+    {}
 
-    void operator+=(const RGB & other)
+    void operator+=(const RGB& other)
     {
         r += other.r;
         g += other.g;
@@ -26,8 +28,7 @@ struct RGB
         return scaled;
     }
 
-    uint8_t r,g,b;
-
+    uint8_t r, g, b;
 };
 
 }

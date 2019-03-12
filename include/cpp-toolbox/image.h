@@ -42,4 +42,4 @@ struct ImageData
     PixelFormat pixfmt;
 };
 
-}
+} // namespace toolbox

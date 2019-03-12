@@ -8,8 +8,7 @@
 namespace toolbox {
 namespace json {
 
-inline Json::Value
-loadFromFile(const std::string& fname)
+inline Json::Value loadFromFile(const std::string& fname)
 {
     std::istream* input_file;
 
@@ -25,8 +24,7 @@ loadFromFile(const std::string& fname)
     Json::Value json;
     Json::CharReaderBuilder rbuilder;
     std::string errs;
-    bool parsing_ok =
-        Json::parseFromStream(rbuilder, *input_file, &json, &errs);
+    bool parsing_ok = Json::parseFromStream(rbuilder, *input_file, &json, &errs);
     if (!parsing_ok)
         fprintf(stderr,
                 "Failed to json data from file '%s': %s",
@@ -37,8 +35,7 @@ loadFromFile(const std::string& fname)
     return json;
 };
 
-inline void
-saveToFile(const std::string& fname, const Json::Value& root)
+inline void saveToFile(const std::string& fname, const Json::Value& root)
 {
     Json::StreamWriterBuilder wbuilder;
     std::ofstream json_stream(fname);
@@ -46,5 +43,5 @@ saveToFile(const std::string& fname, const Json::Value& root)
     json_stream.close();
 };
 
-}
-}
+} // namespace json
+} // namespace toolbox

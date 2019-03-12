@@ -16,41 +16,42 @@ Program::Program() {}
 
 Program::~Program() {}
 
-void
-Program::onCommandLineParseFail(const std::string& message)
+void Program::onCommandLineParseFail(const std::string& message)
 {
     exit(1);
 }
 
 // call given callback function and catch any boost::program_options related
 // exceptions
-void
-Program::catchOptionsError(const std::function<void()>& function)
+void Program::catchOptionsError(const std::function<void()>& function)
 {
-    try {
+    try
+    {
         function();
-    } catch (const boost::program_options::error& e) {
+    } catch (const boost::program_options::error& e)
+    {
         fprintf(stderr, "Error parsing command line options: %s\n", e.what());
         this->onCommandLineParseFail(e.what());
     }
 }
 
-int
-Program::run(int argc, char** argv)
+int Program::run(int argc, char** argv)
 {
     initialiseOptions();
 
-    catchOptionsError(
-        std::bind(&ProgramOptions::parseCommandLine, &_opts, argc, argv));
+    catchOptionsError(std::bind(&ProgramOptions::parseCommandLine, &_opts, argc, argv));
 
-    if (!_opts["help"].defaulted() || !verifyOptions()) {
+    if (!_opts["help"].defaulted() || !verifyOptions())
+    {
         fprintf(stderr, "%s", getName());
         fprintf(stderr, "  %s", getDescription());
         fprintf(stderr, "\n");
 
-        if (getUsage() != nullptr) {
+        if (getUsage() != nullptr)
+        {
             fprintf(stderr, "Usage:");
-            for (std::string usage : strutil::split(getUsage(), ";", false)) {
+            for (std::string usage : strutil::split(getUsage(), ";", false))
+            {
                 fprintf(stderr, "  %s", usage.c_str());
             }
         }
@@ -60,9 +61,11 @@ Program::run(int argc, char** argv)
 
     catchOptionsError(std::bind(&ProgramOptions::notify, &_opts));
 
-    try {
+    try
+    {
         _opts.notify();
-    } catch (const boost::program_options::error& e) {
+    } catch (const boost::program_options::error& e)
+    {
         fprintf(stderr, "Error parsing command line options: %s\n", e.what());
         onCommandLineParseFail(e.what());
     }
@@ -95,8 +98,7 @@ Program::run(int argc, char** argv)
     return rv;
 }
 
-void
-Program::initialiseOptions()
+void Program::initialiseOptions()
 {
     ProgramOption options[] = {
         opt::def<bool>("help", "Show Help Message", false),
@@ -113,8 +115,7 @@ Program::initialiseOptions()
     //_options.addOptions("CPU Options", parallel::getOptions());
 }
 
-std::string
-standardHeader(int argc, char** argv)
+std::string standardHeader(int argc, char** argv)
 {
     std::string header;
 
@@ -144,8 +145,7 @@ standardHeader(int argc, char** argv)
     return header;
 }
 
-void
-Program::initialise(int argc, char** argv)
+void Program::initialise(int argc, char** argv)
 {
     // log::initialise(_options);
 
@@ -167,11 +167,10 @@ Program::initialise(int argc, char** argv)
     // SysInfo::disableCoreDumping();
 }
 
-void
-Program::terminate()
+void Program::terminate()
 {
     // dump_resource_usage();
     // log::flush();
 }
 
-} // toolbox
+} // namespace toolbox

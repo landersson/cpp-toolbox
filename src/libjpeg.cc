@@ -15,18 +15,15 @@
 namespace toolbox {
 //--- JPEG compressed data support --------------------------------------------
 
-static void
-jpg_decompress_hollow(j_decompress_ptr cinfo)
-{}
-static boolean
-jpg_decompress_int(j_decompress_ptr cinfo)
+static void jpg_decompress_hollow(j_decompress_ptr cinfo) {}
+static boolean jpg_decompress_int(j_decompress_ptr cinfo)
 {
     return FALSE;
 }
-static void
-jpg_decompress_skip(j_decompress_ptr cinfo, long num_bytes)
+static void jpg_decompress_skip(j_decompress_ptr cinfo, long num_bytes)
 {
-    if (num_bytes > 0) {
+    if (num_bytes > 0)
+    {
         cinfo->src->next_input_byte += num_bytes;
         cinfo->src->bytes_in_buffer -= num_bytes;
     }
@@ -40,8 +37,7 @@ struct my_error_mgr
 
 typedef struct my_error_mgr* my_error_ptr;
 
-static void
-my_jpeg_error_exit(j_common_ptr cinfo)
+static void my_jpeg_error_exit(j_common_ptr cinfo)
 {
     /* cinfo->err really points to a my_error_mgr struct, so coerce pointer */
     my_error_ptr myerr = (my_error_ptr)cinfo->err;
@@ -54,8 +50,7 @@ my_jpeg_error_exit(j_common_ptr cinfo)
     std::longjmp(myerr->setjmp_buffer, 1);
 }
 
-toolbox::ImageData
-decompress_jpeg(uint8_t* buffer, size_t len)
+toolbox::ImageData decompress_jpeg(uint8_t* buffer, size_t len)
 {
     struct jpeg_decompress_struct cinfo;
     struct jpeg_source_mgr src_man;
@@ -68,7 +63,8 @@ decompress_jpeg(uint8_t* buffer, size_t len)
 
     jerr.pub.error_exit = my_jpeg_error_exit;
     /* Establish the setjmp return context for my_error_exit to use. */
-    if (setjmp(jerr.setjmp_buffer)) {
+    if (setjmp(jerr.setjmp_buffer))
+    {
         /* If we get here, the JPEG code has signaled an error.
          * We need to clean up the JPEG object, close the input file, and
          * return.
@@ -112,10 +108,9 @@ decompress_jpeg(uint8_t* buffer, size_t len)
 
     int failsafe_counter = std::numeric_limits<uint16_t>::max() * 5;
 
-    while (cinfo.output_scanline < cinfo.output_height &&
-           failsafe_counter-- > 0) {
-        row_pointer[0] =
-            (JSAMPLE*)(image.data + cinfo.output_scanline * row_stride);
+    while (cinfo.output_scanline < cinfo.output_height && failsafe_counter-- > 0)
+    {
+        row_pointer[0] = (JSAMPLE*)(image.data + cinfo.output_scanline * row_stride);
         jpeg_read_scanlines(&cinfo, row_pointer, 1);
     }
     jpeg_finish_decompress(&cinfo);
@@ -125,21 +120,17 @@ decompress_jpeg(uint8_t* buffer, size_t len)
     return image;
 }
 
-static void
-jpg_compress_hollow(j_compress_ptr cinfo)
-{}
-static boolean
-jpg_compress_int(j_compress_ptr cinfo)
+static void jpg_compress_hollow(j_compress_ptr cinfo) {}
+static boolean jpg_compress_int(j_compress_ptr cinfo)
 {
     return FALSE;
 }
 
-int
-compress_jpeg(unsigned char** buffer,
-              unsigned width,
-              unsigned height,
-              unsigned components,
-              int quality)
+int compress_jpeg(unsigned char** buffer,
+                  unsigned width,
+                  unsigned height,
+                  unsigned components,
+                  int quality)
 {
     struct jpeg_compress_struct cinfo;
     struct jpeg_destination_mgr dest_man;
@@ -169,18 +160,17 @@ compress_jpeg(unsigned char** buffer,
     cinfo.image_width = width; /* image width and height, in pixels */
     cinfo.image_height = height;
 
-    switch (components) {
+    switch (components)
+    {
         case 1:
-            cinfo.input_components = 1; /* # of color components per pixel */
-            cinfo.in_color_space =
-                JCS_GRAYSCALE; /* colorspace of input image */
+            cinfo.input_components = 1;           /* # of color components per pixel */
+            cinfo.in_color_space = JCS_GRAYSCALE; /* colorspace of input image */
             break;
         case 3:
-            cinfo.input_components = 3; /* # of color components per pixel */
+            cinfo.input_components = 3;     /* # of color components per pixel */
             cinfo.in_color_space = JCS_RGB; /* colorspace of input image */
             break;
-        default:
-            assert(0);
+        default: assert(0);
     }
 
     jpeg_set_defaults(&cinfo);
@@ -193,7 +183,8 @@ compress_jpeg(unsigned char** buffer,
 
     row_stride = cinfo.input_components * width; /* JSAMPLE units per row */
 
-    while (cinfo.next_scanline < cinfo.image_height) {
+    while (cinfo.next_scanline < cinfo.image_height)
+    {
         /* jpeg_write_scanlines expects an array of pointers to scanlines.
          * Here the array is only one element long, but you could pass
          * more than one scanline at a time if that's more convenient.
@@ -216,4 +207,4 @@ compress_jpeg(unsigned char** buffer,
 
     return buffer_size;
 }
-}
+} // namespace toolbox

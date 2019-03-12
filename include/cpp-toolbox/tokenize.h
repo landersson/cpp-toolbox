@@ -12,11 +12,10 @@ typedef std::vector<std::string> str_vec_t;
 // quick and dirty std::string tokenizer. does not support quotes, escape
 // characters etc...
 
-void
-tokenize_string(const std::string& str,
-                str_vec_t& tokens,
-                const std::string& delimiters = " ",
-                const bool keepEmpty = false);
+void tokenize_string(const std::string& str,
+                     str_vec_t& tokens,
+                     const std::string& delimiters = " ",
+                     const bool keepEmpty = false);
 
 /*
   tokenize_string2() - more featured (and less efficient) std::string tokenizer
@@ -72,26 +71,23 @@ tokenize_string(const std::string& str,
 
 */
 
-void
-tokenize_string2(const std::string& str,
-                 str_vec_t& result,
-                 const std::string& delimiters = " \t",
-                 const std::string& delimiters_preserve = "",
-                 const std::string& quote = "\"'",
-                 const std::string& esc = "\\",
-                 bool empty_tokens = false,
-                 bool keep_quotes = false);
+void tokenize_string2(const std::string& str,
+                      str_vec_t& result,
+                      const std::string& delimiters = " \t",
+                      const std::string& delimiters_preserve = "",
+                      const std::string& quote = "\"'",
+                      const std::string& esc = "\\",
+                      bool empty_tokens = false,
+                      bool keep_quotes = false);
 
-void
-tokenize_string2(const std::string& str,
-                 str_vec_t& result,
-                 bool empty_tokens,
-                 bool keep_quotes);
+void tokenize_string2(const std::string& str,
+                      str_vec_t& result,
+                      bool empty_tokens,
+                      bool keep_quotes);
 
-std::vector<std::string>
-split(const std::string& input,
-      const std::string& delim = ",",
-      bool keepEmpty = false);
+std::vector<std::string> split(const std::string& input,
+                               const std::string& delim = ",",
+                               bool keepEmpty = false);
 
 } // namespace strutil
 } // namespace toolbox

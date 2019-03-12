@@ -47,7 +47,7 @@ protected:
     ProgramOptions _opts;
 };
 
-#define PROGRAM_ENTRY_POINT(AppClass)                                          \
+#define PROGRAM_ENTRY_POINT(AppClass)                                                  \
     int main(int argc, char** argv) { return AppClass().run(argc, argv); }
 
-} // toolbox
+} // namespace toolbox

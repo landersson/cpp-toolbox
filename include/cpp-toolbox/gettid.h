@@ -1,5 +1,4 @@
 
 #pragma once
 
-int
-gettid();
+int gettid();

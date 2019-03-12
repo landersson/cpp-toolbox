@@ -5,8 +5,7 @@
 
 namespace toolbox {
 
-uint64_t
-get_uptime_us()
+uint64_t get_uptime_us()
 {
 #ifdef __linux__
     struct timespec ts;
@@ -20,4 +19,4 @@ get_uptime_us()
 class Timer
 {};
 
-}
+} // namespace toolbox

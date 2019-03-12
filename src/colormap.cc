@@ -25,8 +25,7 @@ crow blue[] = { { 0.000, 0.00 }, { 0.125, 0.50 }, { 0.250, 0.75 },
                 { 0.375, 0.50 }, { 0.500, 0.15 }, { 0.625, 0.00 },
                 { 0.750, 0.10 }, { 0.875, 0.50 }, { 1.000, 1.00 } };
 
-inline RGB
-round_rgb(float r, float g, float b)
+inline RGB round_rgb(float r, float g, float b)
 {
     RGB c;
     c.r = (int)std::roundf(255.0 * r);
@@ -36,20 +35,19 @@ round_rgb(float r, float g, float b)
     return c;
 }
 
-inline std::pair<int, int>
-find_range(const crow rows[], float f)
+inline std::pair<int, int> find_range(const crow rows[], float f)
 {
     const int nrows = 9;
 
-    for (int i = 1; i < nrows; i++) {
+    for (int i = 1; i < nrows; i++)
+    {
         if (f < rows[i].x)
             return std::pair<int, int>(i, i - 1);
     }
     return std::pair<int, int>(nrows - 1, nrows - 2);
 }
 
-inline float
-calc_component(const crow rows[], float f)
+inline float calc_component(const crow rows[], float f)
 {
     auto ri = find_range(rows, f);
 
@@ -59,8 +57,7 @@ calc_component(const crow rows[], float f)
     return c1.v + (c2.v - c1.v) * ((f - c1.x) / (c2.x - c1.x));
 }
 
-RGB
-cmr(float f)
+RGB cmr(float f)
 {
     float r = calc_component(red, f);
     float g = calc_component(green, f);
@@ -69,8 +66,7 @@ cmr(float f)
     return round_rgb(r, g, b);
 }
 
-RGB
-iron(float f)
+RGB iron(float f)
 {
     float r, g, b;
 
@@ -99,5 +95,5 @@ iron(float f)
     return round_rgb(r, g, b);
 }
 
-}
-}
+} // namespace cmap
+} // namespace toolbox

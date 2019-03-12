@@ -19,7 +19,8 @@ public:
     multichoice_value(const std::vector<T>& choices = {})
         : boost::program_options::typed_value<T>(0)
     {
-        for (auto c : choices) {
+        for (auto c : choices)
+        {
             std::ostringstream oss;
             oss << c;
             _choices.push_back(oss.str());
@@ -31,7 +32,8 @@ public:
     {
 
         if (std::find(_choices.begin(), _choices.end(), new_tokens[0]) ==
-            _choices.end()) {
+            _choices.end())
+        {
             boost::throw_exception(invalid_choice_value(new_tokens[0]));
         }
         boost::program_options::typed_value<T>::xparse(value_store, new_tokens);

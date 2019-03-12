@@ -8,8 +8,7 @@
 
 namespace toolbox {
 
-char
-get_key(bool block)
+char get_key(bool block)
 {
     struct termios oldt, newt;
     int ch;
@@ -32,12 +31,12 @@ get_key(bool block)
     return ch;
 }
 
-bool
-kb_hit()
+bool kb_hit()
 {
     char ch = get_key(false);
 
-    if (ch != EOF) {
+    if (ch != EOF)
+    {
         ungetc(ch, stdin);
         return true;
     }
@@ -45,14 +44,14 @@ kb_hit()
     return false;
 }
 
-void
-wait_key()
+void wait_key()
 {
-    while (!kb_hit()) {
+    while (!kb_hit())
+    {
         usleep(10000);
     }
 
     getchar(); // Flush key buffer for next stop
 }
 
-}
+} // namespace toolbox

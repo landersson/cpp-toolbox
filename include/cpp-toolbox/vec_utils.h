@@ -8,8 +8,7 @@
 namespace toolbox {
 
 template<typename T>
-std::vector<T>
-load_vector_from_file(const std::string& filename)
+std::vector<T> load_vector_from_file(const std::string& filename)
 {
     std::vector<T> data;
 
@@ -31,4 +30,4 @@ load_vector_from_file(const std::string& filename)
 
     return data;
 }
-}
+} // namespace toolbox

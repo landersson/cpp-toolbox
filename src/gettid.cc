@@ -3,8 +3,7 @@
 #include <sys/syscall.h>
 #include <unistd.h>
 
-int
-gettid()
+int gettid()
 {
 #ifdef __linux__
     return syscall(__NR_gettid);

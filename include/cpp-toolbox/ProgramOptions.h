@@ -77,8 +77,9 @@ enum Opt
 // default value will be initialized using the default contructor of the given
 // type.
 template<typename T>
-inline ProgramOption
-def(const char* name, const char* description, const T& default_value = T())
+inline ProgramOption def(const char* name,
+                         const char* description,
+                         const T& default_value = T())
 {
     return std::make_tuple(
         name,
@@ -90,10 +91,9 @@ def(const char* name, const char* description, const T& default_value = T())
 // default value will be initialized using the default contructor of the given
 // type.
 template<typename T>
-inline ProgramOption
-implicit(const char* name,
-         const char* description,
-         const T& default_value = T())
+inline ProgramOption implicit(const char* name,
+                              const char* description,
+                              const T& default_value = T())
 {
     return std::make_tuple(
         name,
@@ -103,8 +103,7 @@ implicit(const char* name,
 
 // required, no default value version of above
 template<typename T>
-inline ProgramOption
-def(const char* name, const char* description, Opt r)
+inline ProgramOption def(const char* name, const char* description, Opt r)
 {
     auto val = boost::program_options::value<T>();
     val = val->required();
@@ -114,8 +113,9 @@ def(const char* name, const char* description, Opt r)
 // bool specialization, no arguments allowed, set to true if specified w.o
 // argument
 template<>
-inline ProgramOption
-def(const char* name, const char* description, const bool& default_value)
+inline ProgramOption def(const char* name,
+                         const char* description,
+                         const bool& default_value)
 {
     return std::make_tuple(name,
                            description,
@@ -140,8 +140,7 @@ def(const char* name, const char* description, const bool& default_value)
  */
 
 template<typename T>
-inline ProgramOption
-multitoken(const char* name, const char* description)
+inline ProgramOption multitoken(const char* name, const char* description)
 {
     return std::make_tuple(
         name, description, boost::program_options::value<T>()->multitoken());
@@ -159,17 +158,16 @@ multitoken(const char* name, const char* description)
 
 // optional, with default value
 template<typename T>
-inline ProgramOption
-choice(const char* name,
-       const char* description,
-       const std::vector<T>& choices,
-       T default_value = T())
+inline ProgramOption choice(const char* name,
+                            const char* description,
+                            const std::vector<T>& choices,
+                            T default_value = T())
 {
     assert(choices.size() > 0);
 
-    if (default_value != T()) {
-        if (std::find(choices.begin(), choices.end(), default_value) ==
-            choices.end())
+    if (default_value != T())
+    {
+        if (std::find(choices.begin(), choices.end(), default_value) == choices.end())
             assert(0);
     }
     auto val = new multichoice_value<T>(choices);
@@ -181,11 +179,10 @@ choice(const char* name,
 
 // required, with no default value
 template<typename T>
-inline ProgramOption
-choice(const char* name,
-       const char* description,
-       const std::vector<T>& choices,
-       Opt r)
+inline ProgramOption choice(const char* name,
+                            const char* description,
+                            const std::vector<T>& choices,
+                            Opt r)
 {
     auto val = new multichoice_value<T>(choices);
     val->value_name(std::string("<") + val->formatChoices() + ">");
@@ -195,12 +192,11 @@ choice(const char* name,
 }
 
 // option definition list terminator
-inline ProgramOption
-end()
+inline ProgramOption end()
 {
     return std::make_tuple("", "", nullptr);
 }
 
-} // opt
+} // namespace opt
 
 } // namespace toolbox
